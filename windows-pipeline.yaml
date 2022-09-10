@@ -1,0 +1,49 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - VMware/Windows/*
+
+resources:
+- repo: self
+
+pool:
+  name: Default
+
+stages:
+
+- stage: RunPacker
+  jobs:
+  - job: CreateImage
+    timeoutInMinutes: 0
+    steps:
+    - task: PackerTool@0
+      displayName: 'Use Packer Latest'
+
+    - pwsh: |
+        packer init .
+      workingDirectory: '$(build.sourcesDirectory)/VMware/Windows/'
+      failOnStderr: true
+      displayName: "Packer init"
+      name: "PackerInit"
+
+    - pwsh: |
+        packer validate .
+      displayName: "Packer validate"
+      workingDirectory: '$(build.sourcesDirectory)/VMware/Windows/'
+      failOnStderr: true
+      name: "PackerValidate"
+   
+    - pwsh: |
+        packer build .
+      displayName: "Packer build"
+      workingDirectory: '$(build.sourcesDirectory)/VMware/Windows/'
+      failOnStderr: true
+      name: "PackerBuild"
