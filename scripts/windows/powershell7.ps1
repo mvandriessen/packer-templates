@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
  
-$webserver = "s-bi-adobuild1.brisk-it.be"
+$webserver = "s-be-ki-packer.brisk-it.net"
 $url = "http://" + $webserver
 $installer = "PowerShell-7.2.6-win-x64.msi"
 $listConfig = "/i ""C:\temp\$installer"" /qn REBOOT=ReallySuppress"
