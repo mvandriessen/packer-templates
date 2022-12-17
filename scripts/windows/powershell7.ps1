@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
  
 $webserver = "s-be-ki-packer.brisk-it.net"
 $url = "http://" + $webserver
-$installer = "PowerShell-7.2.6-win-x64.msi"
+$installer = "PowerShell-7.3.1-win-x64.msi"
 $listConfig = "/i ""C:\temp\$installer"" /qn REBOOT=ReallySuppress"
  
 # Verify connectivity
